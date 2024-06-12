@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -46,6 +48,10 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String registerUser(@RequestBody LoginRequest signUpRequest) {
+        Optional<User> existingUser = userRepository.findByUsername(signUpRequest.getUsername());
+        if (existingUser.isPresent()) {
+            return "Username is already taken!";
+        }
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
