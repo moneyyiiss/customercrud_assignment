@@ -6,6 +6,7 @@ import com.sunbase.customercrud.repository.UserRepository;
 import com.sunbase.customercrud.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,16 +35,20 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public String authenticateUser(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                )
-        );
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return tokenProvider.generateToken(authentication);
+            return tokenProvider.generateToken(authentication);
+        } catch (BadCredentialsException ex) {
+            return "Invalid username or password!";
+        }
     }
 
     @PostMapping("/signup")
