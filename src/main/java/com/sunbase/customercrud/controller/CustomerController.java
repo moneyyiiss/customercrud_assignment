@@ -53,11 +53,14 @@ public class CustomerController {
     public Page<Customer> getAllCustomers(Authentication authentication,
                                           @RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size,
-                                          @RequestParam(defaultValue = "id") String sortBy){
+                                          @RequestParam(defaultValue = "id") String sortBy,
+                                          @RequestParam(required = false) String searchBy,
+                                          @RequestParam(required = false) String searchValue) {
         String username = ((UserDetails) authentication.getPrincipal()).getUsername();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return customerService.getAllCustomers(user, page, size, sortBy);
+
+        return customerService.getAllCustomers(user, page, size, sortBy, searchBy, searchValue);
     }
 
     // get customer by id

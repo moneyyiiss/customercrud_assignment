@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addCustomerForm = document.getElementById('addCustomerForm');
     const editCustomerForm = document.getElementById('editCustomerForm');
     const syncButton = document.getElementById('syncButton');
+    const searchButton = document.getElementById('searchButton');
     const customerTable = document.getElementById('customerTable');
 
     if (loginForm) {
@@ -71,13 +72,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (syncButton) {
-            syncButton.addEventListener('click', function() {
-                syncCustomers();
-            });
-        }
+        syncButton.addEventListener('click', function() {
+            syncCustomers();
+        });
+    }
 
-
-
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            searchCustomers();
+        });
+    }
 
     function login(username, password) {
         fetch('/api/authenticate', {
@@ -143,10 +147,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    function loadCustomers(queryParam = '', queryValue = '') {
+        let url = '/api/customers';
+        if (queryParam && queryValue) {
+            url += `?searchBy=${queryParam}&searchValue=${queryValue}`;
+        }
 
-
-    function loadCustomers() {
-        fetch('/api/customers', {
+        fetch(url, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -231,27 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
-//    function syncCustomers() {
-//            const username = localStorage.getItem('username');
-//            const password = localStorage.getItem('password');
-//
-//            fetch('/api/customers/sync', {
-//                method: 'POST',
-//                headers: {
-//                    'Content-Type': 'application/json',
-//                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-//                },
-//                body: JSON.stringify({ username, password })
-//            })
-//            .then(response => response.text())
-//            .then(data => {
-//                alert('Customers synced successfully');
-//                loadCustomers();
-//            })
-//            .catch(error => console.error('Error:', error));
-//        }
-
-function syncCustomers() {
+    function syncCustomers() {
         fetch('/api/customers/sync', {
             method: 'POST',
             headers: {
@@ -269,6 +256,12 @@ function syncCustomers() {
             loadCustomers();
         })
         .catch(error => console.error('Error:', error));
+    }
+
+    function searchCustomers() {
+        const searchBy = document.getElementById('searchBy').value;
+        const searchInput = document.getElementById('searchInput').value;
+        loadCustomers(searchBy, searchInput);
     }
 
     if (customerTable) {

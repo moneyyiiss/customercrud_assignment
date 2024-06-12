@@ -55,10 +55,25 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    //get all customers
-    public Page<Customer> getAllCustomers(User user, int page, int size, String sortBy){
+    public Page<Customer> getAllCustomers(User user, int page, int size, String sortBy, String searchBy, String searchValue) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return customerRepository.findByUser(user, pageable);
+
+        if (searchBy != null && searchValue != null) {
+            switch (searchBy) {
+                case "firstName":
+                    return customerRepository.findByUserAndFirstNameContaining(user, searchValue, pageable);
+                case "city":
+                    return customerRepository.findByUserAndCityContaining(user, searchValue, pageable);
+                case "email":
+                    return customerRepository.findByUserAndEmailContaining(user, searchValue, pageable);
+                case "phone":
+                    return customerRepository.findByUserAndPhoneContaining(user, searchValue, pageable);
+                default:
+                    return customerRepository.findByUser(user, pageable);
+            }
+        } else {
+            return customerRepository.findByUser(user, pageable);
+        }
     }
 
     // get customer by id

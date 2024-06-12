@@ -8,8 +8,19 @@
 </head>
 <body>
 <h2>Customer List</h2>
-<button id="syncButton">Sync</button>
 <button id="addCustomerButton">Add New Customer</button>
+<div class="search-container">
+    <label for="searchBy">Search by:</label>
+    <select id="searchBy">
+        <option value="firstName">First Name</option>
+        <option value="city">City</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button id="searchButton">Search</button>
+</div>
+<button id="syncButton">Sync</button>
 <table id="customerTable">
     <thead>
     <tr>
@@ -34,7 +45,6 @@
     document.getElementById('addCustomerButton').addEventListener('click', function() {
         window.location.href = 'addCustomer.html';
     });
-
 </script>
 </body>
 </html>
