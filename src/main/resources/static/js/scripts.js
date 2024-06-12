@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.getElementById('searchButton');
     const customerTable = document.getElementById('customerTable');
     const paginationContainer = document.getElementById('pagination');
+    const loading = document.getElementById('loading');
 
     let currentPage = 0;
     const pageSize = 10;
@@ -246,6 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function syncCustomers() {
+        loading.style.display = 'block'; // Show loading
+
         fetch('/api/customers/sync', {
             method: 'POST',
             headers: {
@@ -262,7 +265,13 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(data);
             loadCustomers();
         })
-        .catch(error => console.error('Error:', error));
+        .finally(() => {
+            loading.style.display = 'none'; // Hide loading
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loading.style.display = 'none'; // Hide loading
+        });
     }
 
     function searchCustomers() {
