@@ -3,27 +3,75 @@ body {
     margin: 20px;
 }
 
-h2 {
+h2, h1{
     color: #333;
 }
 
 form {
     margin-bottom: 20px;
+    max-width: 400px; /* Restrict the width of the form */
+        margin: 0 auto; /* Center the form horizontally */
+        padding: 20px; /* Add padding to the form */
+        border: 1px solid #ddd; /* Add border to the form */
+        border-radius: 5px; /* Add border radius to the form */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+
+}
+
+
+
+form label {
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px; /* Add space below the labels */
+}
+
+form input {
+    width: calc(100% - 12px); /* Adjust input width to fit the form */
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+form button {
+    padding: 10px 15px; /* Adjust padding for the button */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Add border radius to the button */
+    font-size: 14px;
+}
+.button-container {
+    text-align: center; /* Center the content inside the container */
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+form a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+
+form a:hover {
+    text-decoration: underline;
 }
 
 label {
     display: inline-block;
-    width: 100px;
+    width: auto; /* Adjusted to auto to reduce space between label and select */
+    margin-right: 5px; /* Add margin-right for better spacing */
 }
 
-input {
-    margin-bottom: 10px;
-    padding: 5px;
-    width: 200px;
+input, select, button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
 }
 
 button {
-    padding: 5px 10px;
     background-color: #007BFF;
     color: white;
     border: none;
@@ -60,3 +108,14 @@ th {
     color: #007BFF;
 }
 
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-elements {
+    display: flex;
+    align-items: center;
+}
