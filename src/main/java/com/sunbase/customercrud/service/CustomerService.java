@@ -1,9 +1,15 @@
 package com.sunbase.customercrud.service;
 
 import com.sunbase.customercrud.exception.ResourceNotFoundException;
+import com.sunbase.customercrud.exception.UnauthorizedException;
 import com.sunbase.customercrud.model.Customer;
+import com.sunbase.customercrud.model.User;
 import com.sunbase.customercrud.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +20,17 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     // create customer
-    public Customer createCustomer(Customer customer){
+    public Customer createCustomer(Customer customer, User user){
+        customer.setUser(user);
         return customerRepository.save(customer);
     }
 
     //update customer
-    public Customer updateCustomer(Long id, Customer customerDetails){
+    public Customer updateCustomer(Long id, Customer customerDetails, User user){
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        if (!customer.getUser().getId().equals(user.getId())) {
+            throw new UnauthorizedException("You are not authorized to update this customer");
+        }
         customer.setFirstName(customerDetails.getFirstName());
         customer.setLastName(customerDetails.getLastName());
         customer.setStreet(customerDetails.getStreet());
@@ -33,18 +43,27 @@ public class CustomerService {
     }
 
     //get all customers
-    public List<Customer> getAllCustomers(){
-        return customerRepository.findAll();
+    public Page<Customer> getAllCustomers(User user, int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return customerRepository.findByUser(user, pageable);
     }
 
     // get customer by id
-    public Customer getCustomerById(Long id){
-        return customerRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Customer not found"));
+    public Customer getCustomerById(Long id, User user){
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        if(!customer.getUser().getId().equals(user.getId())){
+            throw new UnauthorizedException("You are not authorized to view this customer");
+
+        }
+        return customer;
     }
 
     // deleteCustomer
-    public void deleteCustomer(Long id){
+    public void deleteCustomer(Long id, User user){
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        if(!customer.getUser().getId().equals(user.getId())){
+            throw new UnauthorizedException("You are not authorized to delete this customer");
+        }
         customerRepository.delete(customer);
     }
 
