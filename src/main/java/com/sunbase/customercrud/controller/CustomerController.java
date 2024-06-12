@@ -1,8 +1,10 @@
 package com.sunbase.customercrud.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sunbase.customercrud.exception.ResourceNotFoundException;
 import com.sunbase.customercrud.model.Customer;
 import com.sunbase.customercrud.model.User;
+import com.sunbase.customercrud.payload.LoginRequest;
 import com.sunbase.customercrud.repository.UserRepository;
 import com.sunbase.customercrud.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +77,16 @@ public class CustomerController {
                         .orElseThrow(() ->new ResourceNotFoundException("User not found"));
         customerService.deleteCustomer(id, user);
         return "Customer deleted successfully";
+    }
+
+
+    // sync customers from remote API
+    @PostMapping("/sync")
+    public String syncCustomers(@RequestBody LoginRequest loginRequest, Authentication authentication) throws JsonProcessingException {
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        customerService.syncCustomers(loginRequest, user);
+        return "Customers synced successfully";
     }
 }
