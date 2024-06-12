@@ -29,7 +29,7 @@ public class SecurityConfig  {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/authenticate", "/api/signup" , "/login", "/js/**", "/css/**").permitAll()
+                        .requestMatchers("/api/authenticate", "/api/signup" ,"/index.html", "/register.html" , "/customers.html", "/addCustomer.html", "/editCustomer.html" , "/js/**", "/css/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

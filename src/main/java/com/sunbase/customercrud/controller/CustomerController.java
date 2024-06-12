@@ -9,12 +9,14 @@ import com.sunbase.customercrud.repository.UserRepository;
 import com.sunbase.customercrud.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -79,14 +81,28 @@ public class CustomerController {
         return "Customer deleted successfully";
     }
 
+//
+//    // sync customers from remote API
+//    @PostMapping("/sync")
+//    public String syncCustomers(@RequestBody LoginRequest loginRequest, Authentication authentication) throws JsonProcessingException {
+//        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+//        customerService.syncCustomers(loginRequest, user);
+//        return "Customers synced successfully";
+//    }
+
 
     // sync customers from remote API
     @PostMapping("/sync")
-    public String syncCustomers(@RequestBody LoginRequest loginRequest, Authentication authentication) throws JsonProcessingException {
+    public ResponseEntity<String> syncCustomers(@RequestBody LoginRequest loginRequest, Authentication authentication) throws JsonProcessingException {
         String username = ((UserDetails) authentication.getPrincipal()).getUsername();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         customerService.syncCustomers(loginRequest, user);
-        return "Customers synced successfully";
+        return ResponseEntity.ok("Customers synced successfully");
     }
+
+
+
 }
