@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const syncButton = document.getElementById('syncButton');
     const searchButton = document.getElementById('searchButton');
     const customerTable = document.getElementById('customerTable');
+    const paginationContainer = document.getElementById('pagination');
+
+    let currentPage = 0;
+    const pageSize = 10;
 
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
@@ -148,9 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function loadCustomers(queryParam = '', queryValue = '') {
-        let url = '/api/customers';
+        let url = `/api/customers?page=${currentPage}&size=${pageSize}`;
         if (queryParam && queryValue) {
-            url += `?searchBy=${queryParam}&searchValue=${queryValue}`;
+            url += `&searchBy=${queryParam}&searchValue=${queryValue}`;
         }
 
         fetch(url, {
@@ -197,6 +201,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     deleteCustomer(customerId);
                 });
             });
+
+            // Update pagination
+            updatePagination(data.totalPages);
         })
         .catch(error => console.error('Error:', error));
     }
@@ -262,6 +269,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchBy = document.getElementById('searchBy').value;
         const searchInput = document.getElementById('searchInput').value;
         loadCustomers(searchBy, searchInput);
+    }
+
+    function updatePagination(totalPages) {
+        paginationContainer.innerHTML = '';
+
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Previous';
+        prevButton.disabled = currentPage === 0;
+        prevButton.addEventListener('click', function() {
+            if (currentPage > 0) {
+                currentPage--;
+                loadCustomers();
+            }
+        });
+        paginationContainer.appendChild(prevButton);
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next';
+        nextButton.disabled = currentPage === totalPages - 1;
+        nextButton.addEventListener('click', function() {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                loadCustomers();
+            }
+        });
+        paginationContainer.appendChild(nextButton);
     }
 
     if (customerTable) {
