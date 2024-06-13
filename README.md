@@ -149,6 +149,33 @@ The Sunbase customercrud Assignment is a web application designed to manage cust
 3. **Access the application**:
    - Open your browser and navigate to `http://localhost:8080/customers.html`.
 
+
+## Screenshots
+
+### Register Screen
+![image](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/2c541eea-5869-4d36-8f67-c6259a396fd8)
+
+### Login Screen
+![image](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/375e2f51-81b3-4081-ac5b-182f338e2d8e)
+
+### Customer List
+![image](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/06d76413-85d1-4635-8259-6aa0f293900b)
+
+### Add a New Customer
+![image](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/d8d94690-bbef-49b4-a34a-614c9f6e688e)
+
+### Sorting and Searching
+![Screenshot (26)](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/e887c593-ea4e-413b-93a2-c96b781a6796)
+
+### Sync
+![Screenshot (27)](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/eaaac614-dda6-4038-b6f3-638dc5c7da73)
+![Screenshot (28)](https://github.com/moneyyiiss/customercrud_assignment/assets/48843148/87b62878-2f2c-4295-b722-b840094a44fa)
+
+
+
+
+
+
 ## Contributing
 
 Contributions are welcome! Please create a pull request with your changes.
