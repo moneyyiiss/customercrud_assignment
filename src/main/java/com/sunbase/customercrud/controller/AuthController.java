@@ -5,6 +5,8 @@ import com.sunbase.customercrud.payload.LoginRequest;
 import com.sunbase.customercrud.repository.UserRepository;
 import com.sunbase.customercrud.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +46,7 @@ public class AuthController {
      * @return a JWT token if authentication is successful, otherwise an error message.
      */
     @PostMapping("/authenticate")
-    public String authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -54,10 +56,10 @@ public class AuthController {
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            return tokenProvider.generateToken(authentication);
+            String token = tokenProvider.generateToken(authentication);
+            return ResponseEntity.ok(token);
         } catch (BadCredentialsException ex) {
-            return "Invalid username or password!";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password!");
         }
     }
 

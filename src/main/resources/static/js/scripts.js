@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to handle login
+    // Function to handle login
     function login(username, password) {
         fetch('/api/authenticate', {
             method: 'POST',
@@ -103,13 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({ username, password })
         })
-        .then(response => response.text())
-        .then(data => {
-            localStorage.setItem('token', data);
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // Assuming the token is returned as plain text
+            } else {
+                return response.text().then(error => {
+                    throw new Error(error);
+                });
+            }
+        })
+        .then(token => {
+            localStorage.setItem('token', token);
             window.location.href = '/customers.html';
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Display error message to the user
+            alert(error.message);
+            console.error('Error:', error);
+        });
     }
+
 
     // Function to handle registration
     function register(username, password) {
