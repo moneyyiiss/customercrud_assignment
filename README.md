@@ -1,7 +1,7 @@
 
 # Sunbase customercrud Assignment
 
-The Sunbase customercrud Assignment is a web application designed to manage customer data efficiently. This project utilizes a Java Spring Boot backend and a responsive HTML/CSS/JavaScript frontend. It also incorporates third-party API integration to fetch and update customer data.
+This project is a Customer CRUD (Create, Read, Update, Delete) application designed to manage customer data efficiently. It provides a user-friendly interface for performing various operations on customer data and includes features such as searching and synchronization with a remote API. The application is built using Spring Boot for the backend and HTML, CSS, and JavaScript for the frontend. It employs JWT for secure user authentication and MySQL as the database.
 
 ## Features
 
@@ -68,17 +68,17 @@ The Sunbase customercrud Assignment is a web application designed to manage cust
 
 ### Authentication
 
-- **POST `/api/authenticate`**: Authenticates the user and returns a JWT token.
-  ```json
-  {
-    "username": "testuser",
-    "password": "password"
-  }
-
 - **POST `/api/signup`**: Registers a new user.
   ```json
   {
     "username": "newuser",
+    "password": "password"
+  }
+
+- **POST `/api/authenticate`**: Authenticates the user and returns a JWT token.
+  ```json
+  {
+    "username": "testuser",
     "password": "password"
   }
 
