@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-<h2>Customer List</h2>
+<h2>Customer List</h2> <!-- Heading for the customer list -->
 
 <div class="search-container">
+    <!-- Button to add a new customer -->
     <button id="addCustomerButton">Add New Customer</button>
+
     <div class="search-elements">
+        <!-- Dropdown for selecting the search criterion -->
         <label for="searchBy">Search by:</label>
         <select id="searchBy">
             <option value="firstName">First Name</option>
@@ -19,13 +22,22 @@
             <option value="email">Email</option>
             <option value="phone">Phone</option>
         </select>
+
+        <!-- Input field for search value -->
         <input type="text" id="searchInput" placeholder="Search...">
+
+        <!-- Button to trigger search functionality -->
         <button id="searchButton">Search</button>
+
+        <!-- Button to sync customer data from remote API -->
         <button id="syncButton">Sync</button>
     </div>
 </div>
 
+<!-- Loading indicator -->
 <div id="loading">Please wait...</div>
+
+<!-- Table to display the list of customers -->
 <table id="customerTable">
     <thead>
     <tr>
@@ -45,10 +57,15 @@
     <!-- Customer rows will be added here dynamically -->
     </tbody>
 </table>
+
 <br>
+
+<!-- Pagination controls -->
 <div id="pagination"></div>
-<script src="js/scripts.js"></script>
+
+<script src="js/scripts.js"></script> <!-- Link to external JavaScript file -->
 <script>
+    // Event listener for the "Add New Customer" button
     document.getElementById('addCustomerButton').addEventListener('click', function() {
         window.location.href = 'addCustomer.html';
     });

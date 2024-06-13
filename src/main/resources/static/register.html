@@ -4,22 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-<h1 style="text-align: center;">Register</h1>
+<h1 style="text-align: center;">Register</h1> <!-- Centered heading for the register page -->
+
+<!-- Form for user registration -->
 <form id="registerForm">
+  <!-- Input field for username -->
   <label for="username">Username:</label>
   <input type="text" id="username" name="username" required>
   <br>
+
+  <!-- Input field for password -->
   <label for="password">Password:</label>
   <input type="password" id="password" name="password" required>
   <br>
+
+  <!-- Container to center the register button -->
   <div class="button-container">
     <button type="submit">Register</button>
   </div>
+
+  <!-- Link to login page for users who already have an account -->
   <p>Have an account? <a href="index.html">Login here</a></p>
 </form>
+
+<!-- Link to external JavaScript file -->
 <script src="js/scripts.js"></script>
 </body>
 </html>

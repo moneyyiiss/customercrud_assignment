@@ -18,9 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+/**
+ * AuthController handles authentication and registration endpoints for the application.
+ */
 @RestController
 @RequestMapping("/api")
 public class AuthController {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -33,6 +37,12 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Authenticates a user and returns a JWT token.
+     *
+     * @param loginRequest the login request containing the username and password.
+     * @return a JWT token if authentication is successful, otherwise an error message.
+     */
     @PostMapping("/authenticate")
     public String authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
@@ -51,6 +61,12 @@ public class AuthController {
         }
     }
 
+    /**
+     * Registers a new user.
+     *
+     * @param signUpRequest the signup request containing the username and password.
+     * @return a success message if registration is successful, otherwise an error message.
+     */
     @PostMapping("/signup")
     public String registerUser(@RequestBody LoginRequest signUpRequest) {
         Optional<User> existingUser = userRepository.findByUsername(signUpRequest.getUsername());

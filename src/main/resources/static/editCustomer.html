@@ -4,38 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Customer</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-<h2 style="text-align: center;">Edit Customer</h2>
+<h2 style="text-align: center;">Edit Customer</h2> <!-- Heading for the edit customer form -->
+
+<!-- Form to edit customer details -->
 <form id="editCustomerForm">
+    <!-- Hidden input to store customer ID -->
     <input type="hidden" id="customerId">
+
+    <!-- Input fields for customer details -->
     <label for="firstName">First Name:</label>
     <input type="text" id="firstName" name="firstName" required>
     <br>
+
     <label for="lastName">Last Name:</label>
     <input type="text" id="lastName" name="lastName" required>
     <br>
+
     <label for="street">Street:</label>
     <input type="text" id="street" name="street" required>
     <br>
+
     <label for="address">Address:</label>
     <input type="text" id="address" name="address" required>
     <br>
+
     <label for="city">City:</label>
     <input type="text" id="city" name="city" required>
     <br>
+
     <label for="state">State:</label>
     <input type="text" id="state" name="state" required>
     <br>
+
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
     <br>
+
     <label for="phone">Phone:</label>
     <input type="tel" id="phone" name="phone" required>
     <br>
+
+    <!-- Button to submit the form and save customer details -->
     <button type="submit">Save</button>
 </form>
+
+<!-- Link to external JavaScript file -->
 <script src="js/scripts.js"></script>
 </body>
 </html>

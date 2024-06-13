@@ -4,23 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-<h1 style="text-align: center;">Login</h1>
+<h1 style="text-align: center;">Login</h1> <!-- Centered heading for the login page -->
+
+<!-- Form for user login -->
 <form id="loginForm">
+    <!-- Input field for username -->
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
     <br>
+
+    <!-- Input field for password -->
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
     <br>
+
+    <!-- Container to center the login button -->
     <div class="button-container">
         <button type="submit">Login</button>
     </div>
+
+    <!-- Link to register page for users who don't have an account -->
     <p>Don't have an account? <a href="register.html">Register here</a></p>
 </form>
 
+<!-- Link to external JavaScript file -->
 <script src="js/scripts.js"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 0;
     const pageSize = 10;
 
+    // Event listener for login form submission
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Event listener for register form submission
     if (registerForm) {
         registerForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Event listener for add customer form submission
     if (addCustomerForm) {
         addCustomerForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -47,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Event listener for edit customer form submission
     if (editCustomerForm) {
         editCustomerForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -76,18 +80,21 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('phone').value = localStorage.getItem('editCustomerPhone');
     }
 
+    // Event listener for sync button
     if (syncButton) {
         syncButton.addEventListener('click', function() {
             syncCustomers();
         });
     }
 
+    // Event listener for search button
     if (searchButton) {
         searchButton.addEventListener('click', function() {
             searchCustomers();
         });
     }
 
+    // Function to handle login
     function login(username, password) {
         fetch('/api/authenticate', {
             method: 'POST',
@@ -104,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to handle registration
     function register(username, password) {
         fetch('/api/signup', {
             method: 'POST',
@@ -120,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to handle adding a customer
     function addCustomer(customerData) {
         fetch('/api/customers', {
             method: 'POST',
@@ -136,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to handle updating a customer
     function updateCustomer(customerData) {
         fetch(`/api/customers/${customerData.id}`, {
             method: 'PUT',
@@ -152,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to load customers with optional search parameters
     function loadCustomers(queryParam = '', queryValue = '') {
         let url = `/api/customers?page=${currentPage}&size=${pageSize}`;
         if (queryParam && queryValue) {
@@ -209,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to handle editing a customer
     function editCustomer(id) {
         fetch(`/api/customers/${id}`, {
             method: 'GET',
@@ -232,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to handle deleting a customer
     function deleteCustomer(id) {
         fetch(`/api/customers/${id}`, {
             method: 'DELETE',
@@ -246,6 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    // Function to handle syncing customers from a remote API
     function syncCustomers() {
         loading.style.display = 'block'; // Show loading
 
@@ -274,12 +288,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Function to handle searching customers
     function searchCustomers() {
         const searchBy = document.getElementById('searchBy').value;
         const searchInput = document.getElementById('searchInput').value;
         loadCustomers(searchBy, searchInput);
     }
 
+    // Function to update pagination
     function updatePagination(totalPages) {
         paginationContainer.innerHTML = '';
 
@@ -306,6 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
         paginationContainer.appendChild(nextButton);
     }
 
+    // Initial load of customers if customerTable is present
     if (customerTable) {
         loadCustomers();
     }
