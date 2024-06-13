@@ -68,17 +68,17 @@ This project is a Customer CRUD (Create, Read, Update, Delete) application desig
 
 ### Authentication
 
-- **POST `/api/authenticate`**: Authenticates the user and returns a JWT token.
-  ```json
-  {
-    "username": "testuser",
-    "password": "password"
-  }
-
 - **POST `/api/signup`**: Registers a new user.
   ```json
   {
     "username": "newuser",
+    "password": "password"
+  }
+
+- **POST `/api/authenticate`**: Authenticates the user and returns a JWT token.
+  ```json
+  {
+    "username": "testuser",
     "password": "password"
   }
 
